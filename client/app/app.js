@@ -4,7 +4,8 @@ angular.module('pledgr', [
   'pledgr.home',
   'pledgr.signup',
   'pledgr.signin',
-  'ui.router'
+  'ui.router',
+  'djds4rce.angular-socialshare'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
 //.config(function($stateProvider, $urlRouterProvider, $httpProvider) {

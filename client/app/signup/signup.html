@@ -67,6 +67,7 @@
       </div>
       </div>
     </div>
+    <div facebook data-name='Fb Share' data-url='http://google.com' data-picture-url='http://plnk.co/img/plunker.png' data-caption='Testing Facebook Shae' data-shares='shares'> <a>Share To facebook</a> </div>
      <div class="panel panel-info">
       <div class="panel-heading">
         Annual Pledge Amount
@@ -87,12 +88,15 @@
           <p ng-show="signupForm.lastName.$error.minlength">Name too short</p>
           <p ng-show="signupForm.lastName.$error.maxlength">Name too long</p>
         </div>
+
         <input type="number" ng-model="user.pledge" name="pledge" required>
        
         <p ng-show="signupForm.pledge.$invalid || signupForm.pledge.$pristine">Please enter amount</p>
         <!-- create account submit button-->
         <p>Click <strong>Create account</strong> to sign up today!</p>
+
         <button type="submit" ng-disabled='signupForm.$invalid' class="btn btn-primary">Create account</button>
+
     </div>
     </form>
   </div>

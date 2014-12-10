@@ -1,5 +1,7 @@
-angular.module('pledgr.signup', [])
-
+angular.module('pledgr.signup', ['djds4rce.angular-socialshare'])
+.run(function($FB){
+  $FB.init('813674372027802')
+})
 .controller('SignupController', function($scope, $window, Auth, SMS) {
   $scope.user = {
     first:'First',
