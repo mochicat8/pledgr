@@ -55,6 +55,7 @@ angular.module('pledgr.signup', [])
     .then(function(found) {
       if (found) {
         console.log('Code found');
+        // add ability to show user that their number was verified
       } else {
         console.log('Code not found');
         $('#verify').$invalid = true;
