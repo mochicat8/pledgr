@@ -33,10 +33,10 @@ angular.module('pledgr.signup', [])
   };
 
   $scope.getToken = function(){
-    console.log("scope in get token",$scope);
+    console.log('scope in get token',$scope);
     var Cardinfo = {
       number : $scope.number,
-      exp_month : $scope.expiry.split("/")[0],
+      exp_month : $scope.expiry.split('/')[0],
       exp_year : $scope.expiry.split('/')[1].split('').splice(2).join(''),
       cvc : $scope.cvc
     };
@@ -50,7 +50,7 @@ angular.module('pledgr.signup', [])
   };
 
   $scope.signup = function() {
-    console.log("checkout form in signup",$scope.checkoutForm);
+    console.log('checkout form in signup',$scope.checkoutForm);
     Auth.signup($scope.user)
     // .then(function(token) {
     //     $window.localStorage.setItem('token', token);
