@@ -10,13 +10,6 @@ angular.module('pledgr.signup', [])
   $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
 
   // Stripe Response Handler
-  $scope.stripeCallback = function (code, result) {
-    if (result.error) {
-      console.error('it failed! error: ' + result.error.message);
-    } else {
-      console.log('success! token: ' + result.id);
-    }
-};
 
   $scope.user = {
     first:'First',
@@ -40,7 +33,20 @@ angular.module('pledgr.signup', [])
     pledge: 100.00
   };
 
+  $scope.stripeCallback = function (code, result) {
+    console.log('calling stripe callback bitches');
+    if (result.error) {
+      console.error('it failed! error: ' + result.error.message);
+    } else {
+      console.log('success! token: ' + result.id);
+      // add stripe token to $scope
+      console.log('result from stripe', result);
+      $scope.user.stripeToken = result.id;
+    }
+  };
+
   $scope.signup = function() {
+    console.log("checkout form in signup",$scope.checkoutForm);
     Auth.signup($scope.user)
     // .then(function(token) {
     //     $window.localStorage.setItem('token', token);
