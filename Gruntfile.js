@@ -21,6 +21,11 @@ module.exports = function(grunt) {
       options: {
         config: 'config/.jscsrc'
       }
+    },
+    karma: {
+      unit: {
+        configFile: 'config/karma.conf.js'
+      }
     }
   });
   require('load-grunt-tasks')(grunt);

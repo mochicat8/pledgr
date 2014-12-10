@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "grunt"
+    "test": "grunt  --verbose"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/warring-hail/greenfield.git"
+    "url": "https://github.com/ONYX-CRAB/pledgr.git"
   },
   "keywords": [
     "charitable giving"
@@ -17,9 +17,9 @@
   "author": "warring-hail",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/warring-hail/greenfield/issues"
+    "url": "https://github.com/ONYX-CRAB/pledgr/issues"
   },
-  "homepage": "https://github.com/warring-hail/greenfield",
+  "homepage": "https://github.com/ONYX-CRAB/pledgr",
   "dependencies": {
     "body-parser": "^1.10.0",
     "cheerio": "^0.18.0",
