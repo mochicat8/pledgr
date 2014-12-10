@@ -1,6 +1,14 @@
 angular.module('pledgr.signup', [])
 
+// .config(function($window){
+//     $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
+// })
+
 .controller('SignupController', function($scope, $window, Auth, SMS) {
+
+  // sets your application publishable key
+  $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
+
   $scope.user = {
     first:'First',
     last:'Last',

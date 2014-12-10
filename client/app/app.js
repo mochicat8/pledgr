@@ -4,9 +4,10 @@ angular.module('pledgr', [
   'pledgr.home',
   'pledgr.signup',
   'pledgr.signin',
-  'ui.router'
+  'ui.router',
+  'angularPayments'
 ])
-.config(function($stateProvider, $urlRouterProvider, $window) {
+.config(function($stateProvider, $urlRouterProvider) {
 //.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/');
 
@@ -32,8 +33,6 @@ angular.module('pledgr', [
        controller: 'CharitiesController'
     });
 
-    // sets your application publishable key
-    $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
-
     // $httpProvider.interceptors.push('AttachTokens');
 });
+
