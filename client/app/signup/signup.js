@@ -44,19 +44,9 @@ angular.module('pledgr.signup', [])
     $window.Stripe.createToken(Cardinfo, function(status, res){
       console.log('status in create token', status);
       console.log('response in create token', res);
+      $scope.user.stripeToken = res.id;
     });
-  };
 
-  $scope.stripeCallback = function (code, result) {
-    console.log('calling stripe callback bitches');
-    if (result.error) {
-      console.error('it failed! error: ' + result.error.message);
-    } else {
-      console.log('success! token: ' + result.id);
-      // add stripe token to $scope
-      console.log('result from stripe', result);
-      $scope.user.stripeToken = result.id;
-    }
   };
 
   $scope.signup = function() {
