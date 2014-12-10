@@ -4,7 +4,8 @@ angular.module('pledgr', [
   'pledgr.home',
   'pledgr.signup',
   'pledgr.signin',
-  'ui.router'
+  'ui.router',
+  'angularPayments'
 ])
 .config(function($stateProvider, $urlRouterProvider) {
 //.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -31,6 +32,5 @@ angular.module('pledgr', [
        templateUrl: 'app/charities/charities.html',
        controller: 'CharitiesController'
     });
-
     // $httpProvider.interceptors.push('AttachTokens');
 });

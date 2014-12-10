@@ -34,7 +34,8 @@ var UserSchema = new mongoose.Schema({
   joinDate : {
     type: Date,
     default: Date.now
-  }
+  },
+  stripeToken: String
 });
 
 // UserSchema.methods.comparePasswords = function(candidatePassword) {

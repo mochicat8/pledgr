@@ -1,6 +1,14 @@
 angular.module('pledgr.signup', [])
 
+// .config(function($window){
+//     $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
+// })
+
 .controller('SignupController', function($scope, $window, Auth, SMS) {
+
+  // sets your application publishable key
+  $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
+
   $scope.user = {
     first:'First',
     last:'Last',
@@ -23,7 +31,24 @@ angular.module('pledgr.signup', [])
     pledge: 100.00
   };
 
+  // sends credit card info to Stripe and returns with token
+  $scope.getToken = function() {
+    var Cardinfo = {
+      number : $scope.number,
+      //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+      exp_month : $scope.expiry.split('/')[0], // jshint ignore:line
+      exp_year : $scope.expiry.split('/')[1].split('').splice(2).join(''), // jshint ignore:line
+      //jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+      cvc : $scope.cvc
+    };
+    $window.Stripe.createToken(Cardinfo, function(status, res) {
+      $scope.user.stripeToken = res.id;
+    });
+
+  };
+
   $scope.signup = function() {
+    console.log('checkout form in signup', $scope.checkoutForm);
     Auth.signup($scope.user)
     // .then(function(token) {
     //     $window.localStorage.setItem('token', token);
