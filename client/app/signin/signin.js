@@ -17,6 +17,3 @@ angular.module('pledgr.signin', [])
       });
   };
 });
-
-
-

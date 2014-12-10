@@ -32,7 +32,5 @@ angular.module('pledgr', [
        templateUrl: 'app/charities/charities.html',
        controller: 'CharitiesController'
     });
-
     // $httpProvider.interceptors.push('AttachTokens');
 });
-
