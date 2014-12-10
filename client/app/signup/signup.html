@@ -54,7 +54,7 @@
         <input type="tel" name="telephone" ng-pattern="/(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]‌​)\s*)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)([2-9]1[02-9]‌​|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})/" ng-model="user.phone" required><br />
           <!-- phone number validation -->
           <p ng-show="signupForm.telephone.$error.pattern">Enter a valid telephone number</p>
-          <button class="btn btn-success" type="button" onclick="$('.validatePhone').toggle()" ng-click="sendCode()" ng-disabled='signupForm.telephone.$invalid'>Send Code</button>
+          <button class="btn btn-success" type="button" ng-click="sendCode()" ng-disabled='signupForm.telephone.$invalid'>Send Code</button>
       </div>
       <div class="validatePhone">
         <!-- verification code input -->
