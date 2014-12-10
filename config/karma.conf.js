@@ -15,15 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-route/angular-route.js',
-      'client/bower_components/angular-mocks/angular-mocks.js',
-      'client/bower_components/angular-ui-router/release/angular-ui-router.js',
+      '../client/bower_components/angular/angular.js',
+      '../client/bower_components/angular-route/angular-route.js',
+      '../client/bower_components/angular-mocks/angular-mocks.js',
+      '../client/bower_components/angular-ui-router/release/angular-ui-router.js',
 
-      'client/app/**/*.js',
+      '../client/app/**/*.js',
 
-      'node_modules/expect.js/index.js',
-      'specs/client/**/*.js'
+      '../node_modules/expect.js/index.js',
+      '../specs/client/**/*.js'
     ],
 
 
