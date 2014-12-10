@@ -8,7 +8,6 @@ angular.module('pledgr.signup', [])
 
   // sets your application publishable key
   $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
-
   // Stripe Response Handler
 
   $scope.user = {
@@ -31,6 +30,21 @@ angular.module('pledgr.signup', [])
     phone: '(111)111-1111',
     code:'test',
     pledge: 100.00
+  };
+
+  $scope.getToken = function(){
+    console.log("scope in get token",$scope);
+    var Cardinfo = {
+      number : $scope.number,
+      exp_month : $scope.expiry.split("/")[0],
+      exp_year : $scope.expiry.split('/')[1].split('').splice(2).join(''),
+      cvc : $scope.cvc
+    };
+    
+    $window.Stripe.createToken(Cardinfo, function(status, res){
+      console.log('status in create token', status);
+      console.log('response in create token', res);
+    });
   };
 
   $scope.stripeCallback = function (code, result) {

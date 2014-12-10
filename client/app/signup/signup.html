@@ -67,6 +67,21 @@
       </div>
       </div>
     </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+      Verify your payment information
+      </div>
+      <div class="panel-body">
+        <div class="cardContainer">
+          <div name="checkoutForm">>
+            <input ng-model="number" placeholder="Card Number" payments-format="card" payments-validate="card" name="card" />
+            <input ng-model="expiry" placeholder="Expiration" payments-format="expiry" payments-validate="expiry" name="expiry" />
+            <input ng-model="cvc" placeholder="CVC" payments-format="cvc" payments-validate="cvc" name="cvc" /><br />
+            <button class="btn btn-success" type="button" ng-click="getToken()">Submit</button>
+          </div> 
+        </div>
+      </div>
+    </div> 
      <div class="panel panel-info">
       <div class="panel-heading">
         Annual Pledge Amount
