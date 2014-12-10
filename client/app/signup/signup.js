@@ -9,6 +9,15 @@ angular.module('pledgr.signup', [])
   // sets your application publishable key
   $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
 
+  // Stripe Response Handler
+  $scope.stripeCallback = function (code, result) {
+    if (result.error) {
+      console.error('it failed! error: ' + result.error.message);
+    } else {
+      console.log('success! token: ' + result.id);
+    }
+};
+
   $scope.user = {
     first:'First',
     last:'Last',
