@@ -74,10 +74,12 @@
       </div>
       <div class="panel-body">
         <div class="cardContainer">
-          <input ng-model="number" placeholder="Card Number" />
-          <input ng-model="expiry" placeholder="Expiration" />
-          <input ng-model="cvc" placeholder="CVC" />
-          <button type="submit">Submit</button>
+          <form stripe-form="stripeCallback">
+            <input ng-model="number" placeholder="Card Number" />
+            <input ng-model="expiry" placeholder="Expiration" />
+            <input ng-model="cvc" placeholder="CVC" />
+            <button class="btn btn-success" type="submit">Submit</button>
+          </form>
         </div>
     </div> 
 

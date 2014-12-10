@@ -6,7 +6,7 @@ angular.module('pledgr', [
   'pledgr.signin',
   'ui.router'
 ])
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $window) {
 //.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/');
 
@@ -31,6 +31,9 @@ angular.module('pledgr', [
        templateUrl: 'app/charities/charities.html',
        controller: 'CharitiesController'
     });
+
+    // sets your application publishable key
+    $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
 
     // $httpProvider.interceptors.push('AttachTokens');
 });
