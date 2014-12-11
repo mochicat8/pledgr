@@ -2,7 +2,7 @@ var User = require('./userModel');
 var Q = require('q');
 var jwt  = require('jwt-simple');
 var sendText = require('../sms/sendDonationText');
-var stripe = require('stripe')(/* secret key goes here */);
+var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = {
   signin: function(req, res, next) {

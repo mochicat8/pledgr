@@ -17,7 +17,8 @@ var CharitySchema = new mongoose.Schema({
     'Working Capital Ratio': String
   },
   category: String,
-  subCategory: String
+  subCategory: String,
+  stripeData: mongoose.Schema.Types.Mixed // jshint ignore:line
 });
 
 module.exports = mongoose.model('Charity', CharitySchema);

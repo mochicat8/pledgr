@@ -28,15 +28,18 @@ var UserSchema = new mongoose.Schema({
   publicBenefit: Boolean,
   religion: Boolean,
   local: Boolean,
-  phone: String,
+  phone: {
+    type: String,
+    required: true,
+    unique: true
+  },
   code: String,
   pledge: Number,
   joinDate : {
     type: Date,
     default: Date.now
   },
-  // stripeToken: String
-  stripeData: Mixed
+  stripeData: mongoose.Schema.Types.Mixed // jshint ignore:line
 });
 
 // UserSchema.methods.comparePasswords = function(candidatePassword) {

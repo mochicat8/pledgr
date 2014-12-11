@@ -5,7 +5,7 @@ var User = require('../users/userModel');
 var Charity = require('../charity/charityModel');
 
 var SentMessage = SmsModel.SentMessages;
-var fromNumber = '+15123593126';
+var fromNumber = process.env.TWILIO_NUMBER;
 
 // For each item in the array, save the message to the db
 var saveMessage = function(messages, next) {

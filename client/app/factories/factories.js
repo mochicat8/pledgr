@@ -20,8 +20,8 @@ angular.module('pledgr.factories', [])
       data: user
     })
     .then(function(resp) {
-      return resp.data;
-      // return resp.data.token;
+      // return resp.data;
+      return resp.data.token;
     });
   };
 
