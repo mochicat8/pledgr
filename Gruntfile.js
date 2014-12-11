@@ -30,5 +30,6 @@ module.exports = function(grunt) {
   });
   require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('default', ['jshint', 'jscs']);
+  grunt.registerTask('default', ['jshint', 'jscs', 'karma']);
+  grunt.registerTask('tests', ['karma']);
 };
