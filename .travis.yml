@@ -6,7 +6,6 @@ before_script:
   - npm install -g bower
   - bower install
 node_js:
-  - '0.8'
   - '0.10'
 notifications:
   email: false
