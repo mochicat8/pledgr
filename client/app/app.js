@@ -4,6 +4,7 @@ angular.module('pledgr', [
   'pledgr.home',
   'pledgr.signup',
   'pledgr.signin',
+  'pledgr.profile',
   'ui.router',
   'angularPayments'
 ])
@@ -31,6 +32,11 @@ angular.module('pledgr', [
        url: '/charities/{c1:[0-9]+}/{c2:[0-9]+}/{c3:[0-9]+}',
        templateUrl: 'app/charities/charities.html',
        controller: 'CharitiesController'
+    })
+    .state('profile', {
+      url:'/profile',
+      templateUrl: 'app/profile/profile.html',
+      controller: 'ProfileController'
     });
     // $httpProvider.interceptors.push('AttachTokens');
 });

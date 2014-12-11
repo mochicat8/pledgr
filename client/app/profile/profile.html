@@ -1,0 +1,25 @@
+<div id='profile-container'>
+  <div> 
+    <h1 class="welcomeMsg">Welcome, {{user.first}}!</h1>
+  </div>
+  <div> 
+    <h3 class="page-header">User Donation Profile</h3>
+  </div>
+  <div id="table-container" class="table responsive">
+    <table id="table" class="table table-striped" style="width:50%">
+      <tr>
+        <th>Charity</th>
+        <th>Contribution</th>
+      </tr>
+      <tr ng-repeat="charity in charityList">
+        <td>{{charity.name}}</td>
+        <td>${{charity.amount}}</td>
+      <tr>
+    </table>
+  </div>
+  <div id="highchart-container"></div>
+</div>
+
+
+
+
