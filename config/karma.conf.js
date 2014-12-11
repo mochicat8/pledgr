@@ -52,6 +52,9 @@ module.exports = function(config) {
     // enable / disable colors in the output (reporters and logs)
     colors: true,
 
+    //If a browser doesn't capture in a given time (ms), kill it.
+    captureTimeout: 5000,
+
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
@@ -64,7 +67,13 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
+    
+
+    plugins: [
+          'karma-jasmine',
+          'karma-phantomjs-launcher'
+        ],
 
 
     // Continuous Integration mode
