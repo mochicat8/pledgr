@@ -2,6 +2,7 @@ var User = require('./userModel');
 var Q = require('q');
 var jwt  = require('jwt-simple');
 var sendText = require('../sms/sendDonationText');
+var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 module.exports = {
   signin: function(req, res, next) {
@@ -56,7 +57,14 @@ module.exports = {
 
           // make a new user if not one
           var create = Q.nbind(User.create, User);
-          return create(newUser);
+
+          return stripe.customers.create({
+            card: newUser.stripeToken,
+            description: 'pledgr token for: ' + username
+          }).then(function(customer) {
+            newUser.stripeData = customer;
+            return create(newUser);
+          });
         }
       })
       .then(function(user) {

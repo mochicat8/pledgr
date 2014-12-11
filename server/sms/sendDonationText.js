@@ -5,6 +5,7 @@ var User = require('../users/userModel');
 var Charity = require('../charity/charityModel');
 
 var SentMessage = SmsModel.SentMessages;
+var fromNumber = process.env.TWILIO_NUMBER;
 
 // For each item in the array, save the message to the db
 var saveMessage = function(messages, next) {
@@ -29,7 +30,7 @@ var sendSms = function(messages, next) {
     client.sendMessage(
       {
         to: '+1' + message.phone,
-        from: '+16508259600',
+        from: fromNumber,
         body: message.messageBody
       },
       function(err) {
@@ -82,7 +83,7 @@ var prepareMessageBody = function(users, charities, next) {
     messageBody += '1. ' + shortenString(choice1.name.toString()) + '\n';
     messageBody += '2. ' + shortenString(choice2.name.toString()) + '\n';
     messageBody += '3. ' + shortenString(choice3.name.toString()) + '\n';
-    messageBody += 'Reply with (1/3) to donate or visit ' + link;
+    messageBody += 'Reply with 1, 2 or 3 to donate or visit ' + link;
 
     var messageContent = {
       phone: users[i].phone,
@@ -127,6 +128,7 @@ var getUsers = function(queryData, next) {
     if (err) {
       console.log('Error fetching users');
     } else {
+      console.log('user data:', data);
       next(data);
     }
   });

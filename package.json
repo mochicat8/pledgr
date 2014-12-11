@@ -28,10 +28,11 @@
     "jwt-simple": "^0.2.0",
     "mongoose": "^3.8.20",
     "nodemon": "^1.2.1",
+    "q": "^1.1.2",
     "request": "^2.49.0",
+    "stripe": "^3.0.2",
     "twilio": "~1.9.0",
-    "underscore": "~1.7.0",
-    "q": "^1.1.2"
+    "underscore": "~1.7.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",

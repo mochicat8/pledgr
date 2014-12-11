@@ -3,8 +3,13 @@ var AuthCodeModel = require('./authCodeModel');
 var SmsModel = require('./sentMessagesModel');
 var UserModel = require('../users/userModel');
 var CharityModel = require('../charity/charityModel');
+// var Q = require('q');
+
+var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 var client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
+// var STRIPE_TEST_ROUTING = 000123456789;
+// var STRIPE_TEST_BANK_ACCT = 110000000;
 
 var fromPhone = process.env.TWILIO_NUMBER;
 
@@ -12,6 +17,7 @@ var fromPhone = process.env.TWILIO_NUMBER;
 var generateCode = function(userPhone) {
   var code = Math.floor(Math.random() * 90000) + 10000;
   var codeModel = new AuthCodeModel.AuthCode({ phone: userPhone, code: code });
+  // save or update so only the latest code can be used to verify the number
   codeModel.save(function(err) {
     if (err) { throw err; }
   });
@@ -31,18 +37,18 @@ module.exports = {
       var userChoice = 'choice' + req.body.Body;
       var userPhone = req.body.From.slice(2);
       // Query the user choices collection with the phone number that sent the response
-      SmsModel.SentMessages.findOne({ phone: userPhone }, function(err, data) {
+      SmsModel.SentMessages.findOne({ phone: userPhone }, function(err, sms) {
         if (err) {return console.error(err);}
-        if (data[userChoice]) {
-          var chosenCharityId = data[userChoice];
+        if (sms[userChoice]) {
+          var chosenCharityId = sms[userChoice];
           // Query the User collection to find out how much they want to donate
-          UserModel.findOne({ phone: data.phone }, function(err, data) {
+          UserModel.findOne({ phone: sms.phone }, function(err, user) {
             var today = new Date();
             // Set the donation to the amount of the yearly pledge divided by the number of weeks remaining in the year
-            var donationAmount = Math.round((data.pledge / (53 - weekNumber(today))) * 100) / 100;
+            var donationAmount = Math.round((user.pledge / (53 - weekNumber(today))) * 100) / 100;
             // Create a new donation in the donations collection
             var donation = new SmsModel.Donations({
-              phone: data.phone,
+              phone: user.phone,
               charity: chosenCharityId,
               amount: donationAmount
             });
@@ -51,14 +57,26 @@ module.exports = {
               if (err) { throw err; }
               else {
                 chosenCharityId = parseInt(chosenCharityId);
-                CharityModel.findOne({ orgid: chosenCharityId }, function(err, data) {
+                // send thank you w/ charity name back to user
+                CharityModel.findOne({ orgid: chosenCharityId }, function(err, charity) {
                   client.sendMessage({
                     to: '+1' + userPhone,
                     from: fromPhone,
-                    body: 'Thank you for your donation of $' + donationAmount + ' to ' + data.name + '.'
+                    body: 'Thank you for your donation of $' + donationAmount + ' to ' + charity.name + '.'
                   }, function(err) {
                     if (err) {
                       console.log(err);
+                    } else {
+                      // TODO: allow server to transfer money to charities, rather than holding it
+                      // transfer the money to our account
+                      stripe.charges.create({
+                        amount: donationAmount * 100,
+                        currency: 'usd',
+                        customer: user.stripeData.id,
+                        description: 'PLEDGR to: ' + charity.name
+                      }).then(function(charge) {
+                        console.log('charge receipt from stripe', charge);
+                      });
                     }
                   });
                 });
