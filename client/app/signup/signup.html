@@ -73,11 +73,14 @@
       </div>
       <div class="panel-body">
         <div class="cardContainer">
-          <div name="checkoutForm">>
-            <input ng-model="number" placeholder="Card Number" payments-format="card" payments-validate="card" name="card" />
-            <input ng-model="expiry" placeholder="Expiration" payments-format="expiry" payments-validate="expiry" name="expiry" />
-            <input ng-model="cvc" placeholder="CVC" payments-format="cvc" payments-validate="cvc" name="cvc" /><br />
-            <button class="btn btn-success" type="button" ng-click="getToken()">Submit</button>
+          <div name="checkoutForm">
+            <label for="card">Credit Card Number</label>
+            <input ng-model="number" placeholder="Card Number" payments-format="card" payments-validate="card" name="card" ><br />
+            <label for="expiry">Expiration Date</label>
+            <input ng-model="expiry" placeholder="Expiration" payments-format="expiry" payments-validate="expiry" name="expiry" ><br />
+            <label for="cvc">CVC</label>
+            <input ng-model="cvc" placeholder="CVC" payments-format="cvc" payments-validate="cvc" name="cvc" ><br />
+            <button class="btn btn-success" type="button" ng-click="getToken()">Verify Information</button>
           </div> 
         </div>
       </div>
@@ -102,9 +105,11 @@
           <p ng-show="signupForm.lastName.$error.minlength">Name too short</p>
           <p ng-show="signupForm.lastName.$error.maxlength">Name too long</p>
         </div>
-        <input type="number" ng-model="user.pledge" name="pledge" required>
-       
-        <p ng-show="signupForm.pledge.$invalid || signupForm.pledge.$pristine">Please enter amount</p>
+        <!-- <p ng-show="signupForm.pledge.$invalid || signupForm.pledge.$pristine">Please enter amount</p> -->
+        <label for="pledge">Pledge Per Year</label>
+        <input type="number" ng-model="user.pledge" name="pledge" required><br />
+        <label for="pledge">Pledge Per Week</label>
+        <input type="number" ng-model="user.pledge" converter="y2w"><br />
         <!-- create account submit button-->
         <p>Click <strong>Create account</strong> to sign up today!</p>
         <button type="submit" ng-disabled='signupForm.$invalid' class="btn btn-primary">Create account</button>
@@ -112,4 +117,3 @@
     </form>
   </div>
 </div>
-
