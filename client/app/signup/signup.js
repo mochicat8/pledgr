@@ -10,8 +10,8 @@ angular.module('pledgr.signup', [])
   $window.Stripe.setPublishableKey('pk_test_3Fzz9YSECJXQuhTlWhLzcj6P');
 
   $scope.user = {
-    first:'First',
-    last:'Last',
+    first:'First Name',
+    last:'Last Name',
     username: 'username@example.com',
     password: '',
     male: false,
@@ -28,10 +28,10 @@ angular.module('pledgr.signup', [])
     local: false,
     phone: '(111)111-1111',
     code:'test',
-    pledge: 100.00
+    pledge: 100.00,
   };
 
-  // sends credit card info to Stripe and returns with token
+ // sends credit card info to Stripe and returns with token
   $scope.getToken = function() {
     var Cardinfo = {
       number : $scope.number,
@@ -84,8 +84,29 @@ angular.module('pledgr.signup', [])
       } else {
         console.log('Code not found');
         $('#verify').$invalid = true;
-
       }
     });
   };
+})
+
+.directive('converter', function(converters) {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attr, ngModel) {
+      var converter = converters[attr.converter];
+      ngModel.$formatters.unshift(converter.formatter);
+      ngModel.$parsers.push(converter.parser);
+    }
+  };
+})
+
+.value('converters', {
+  y2w: {
+    formatter: function(y) {
+      return y / 52;
+    },
+    parser: function(w) {
+      return w * 52;
+    }
+  }
 });
