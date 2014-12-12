@@ -75,7 +75,12 @@ module.exports = {
                         customer: user.stripeData.id,
                         description: 'PLEDGR to: ' + charity.name
                       }).then(function(charge) {
-                        console.log('charge receipt from stripe', charge);
+                        if (!charge.paid) {
+                          console.error('payment from user', user.username, 'failed');
+                          // jscs:disable
+                          console.error(charge.failure_code, charge.failure_message);
+                          // jscs:enable
+                        }
                       });
                     }
                   });
