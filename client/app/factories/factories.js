@@ -1,6 +1,6 @@
 angular.module('pledgr.factories', [])
 
-.factory('Auth', function($http) {
+.factory('Auth', function($http, $window) {
   var signup = function(data) {
     console.log(data);
     return $http({
@@ -9,7 +9,7 @@ angular.module('pledgr.factories', [])
       data: data
     })
     .then(function(resp) {
-      return resp.data.token;
+      $window.sessionStorage.token = resp.data.token;
     });
   };
 
@@ -20,8 +20,7 @@ angular.module('pledgr.factories', [])
       data: user
     })
     .then(function(resp) {
-      // return resp.data;
-      return resp.data.token;
+      $window.sessionStorage.token = resp.data.token;
     });
   };
 

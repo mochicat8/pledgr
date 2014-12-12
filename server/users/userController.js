@@ -16,15 +16,17 @@ module.exports = {
         if (!user) {
           next(new Error('User does not exist'));
         } else {
-          findUser({ password: password })
-          .then(function(password) {
-            if (!password) {
-              next(new Error('password incorrect'));
-            } else {
-              var token = jwt.encode(user, 'secret');
-              res.json({ token: token });
-            }
-          });
+          // findUser({ username: username, password: password })
+          // .then(function(password) {
+          if (user.password !== password) {
+            next(new Error('password incorrect'));
+          } else {
+            var token = jwt.encode(user, 'secret');
+            res.status(200);
+            res.json({ token: token });
+          }
+          // });
+
           // return user.comparePasswords(password)
           //   .then(function(foundUser) {
           //     if (foundUser) {
@@ -47,6 +49,8 @@ module.exports = {
     //parse phone number
     newUser.phone = newUser.phone.match(/\d/g).join('');
 
+    // add some way of verifying the sent code against known sent codes before allowing user to finishing registering
+
     var findOne = Q.nbind(User.findOne, User);
     // check to see if user already exists
     findOne({ username: username })
@@ -54,8 +58,7 @@ module.exports = {
         if (user) {
           next(new Error('User already exist!'));
         } else {
-
-          // make a new user if not one
+          // make a new user at this username if one doesn't already exist
           var create = Q.nbind(User.create, User);
 
           return stripe.customers.create({
@@ -68,17 +71,19 @@ module.exports = {
         }
       })
       .then(function(user) {
-      //send first text message after signup
-        sendText.getUsers({ phone: user.phone });
+        // create token to send back for auth
+        var token = jwt.encode(user, 'secret');
+//        console.log('token is:', token);
+        res.status(201);
+        res.json({ token: token });
+        return Q.fcall(function() {
+          return user;
+        });
       })
-      .then(function() {
-        res.status(201).end();
+      .then(function(user) {
+        // send first donation text message after signup
+        return sendText.getCharities([user]);
       })
-      // .then(function(user) {
-      //   // create token to send back for auth
-      //   var token = jwt.encode(user, 'secret');
-      //   res.json({ token: token });
-      // })
       .fail(function(error) {
         next(error);
       });
